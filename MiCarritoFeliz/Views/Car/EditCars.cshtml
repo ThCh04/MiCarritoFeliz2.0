@@ -1,0 +1,59 @@
+﻿@model MiCarritoFeliz.Models.ViewModels.Cars.EditCarViewModel
+@{
+    ViewBag.Title = "EditCars";
+    //Layout = "~/Views/Shared/_CarManagementLayout.cshtml";
+}
+
+<h2>Edit Cars</h2>
+
+
+<div class="container">
+    <div class="row">
+        <div class="">
+            <div class="">
+                <div class="">
+                    <h4>Editing a Car</h4>
+                </div>
+                <div class="card-body">
+                    <img class="bd-placeholder-img card-img-top img-poke-size" src="@Model.ImgRuta">
+                    @using (Html.BeginForm("EditCar", "Car", FormMethod.Post, new { role = "form", @class = "" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.ValidationMessage("error", new { @class = "text-danger" })
+
+                        <div class="mb-3">
+                            @Html.LabelFor(d => d.Marca)
+                            @Html.TextBoxFor(d => d.Marca, new { @class = "form-control" })
+
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(d => d.Modelo)
+                            @Html.TextBoxFor(d => d.Modelo, new { @class = "form-control" })
+
+                        </div>
+
+                        <div class="mb-3">
+                            @Html.LabelFor(d => d.Año)
+                            @Html.TextBoxFor(d => d.Año, new { @class = "form-control" })
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            @Html.LabelFor(d => d.ImgRuta)
+                            @Html.TextBoxFor(d => d.ImgRuta, new { @class = "form-control" })
+
+                        </div>
+
+
+                        <input type="submit" value="Save" class="btn  btn-lg" />
+                        <input type="button" value="Go Back" class="btn btn-lg" onclick="document.location.href = '@Url.Content("~/Car/GetCars")'" />
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

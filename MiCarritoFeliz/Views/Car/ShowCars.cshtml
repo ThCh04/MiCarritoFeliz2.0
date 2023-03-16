@@ -1,0 +1,77 @@
+﻿@model List<MiCarritoFeliz.Models.ViewModels.Cars.ListCarViewModel>
+@{
+    ViewBag.Title = "ShowCars";
+    //Layout = "~/Views/Shared/_CarManagementLayout.cshtml";
+}
+
+<h2>Show Cars</h2>
+
+
+<div class="container">
+
+    <div class="">
+        <div class="">
+            <input type="button" class="btn  btn-lg" onclick="document.location.href='@Url.Content("~/Car/CreateCar")'" value="New" />
+            <input type="button" class="btn btn-lg" value="Go Back" onclick="document.location.href = '@Url.Content("~/")'" />
+        </div>
+
+    </div>
+
+    <div class="">
+
+
+        @if (Model == null || Model.Count == 0)
+        {
+            <h2>There´s no cars registered</h2>
+        }
+        else
+        {
+
+            foreach (var item in Model)
+            {
+
+                <div class="">
+                    <div class="">
+                        <img class="bd-placeholder-img card-img-top img-poke-size" src="@item.ImgRoute">
+                        <div class="">
+                            <h4>@item.Model</h4>
+                            <p class="">@item.Brand</p>
+                            <p class="">@item.Year</p>
+                            <div class="">
+                                <div class="btn-group">
+                                    <input type="button" value="Delete" class="btn btn-danger" onclick="jsDelete(@item.CarId);" />
+                                    <input type="button" value="Edit" class="btn btn-default" onclick="document.location.href = '@Url.Content("~/Car/EditCar/" +item.CarId)'" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+    function jsDelete(id) {
+
+        if (confirm("Are you sure you want to delete this car?")) {
+            url = "@Url.Content("~/Car/DeleteCars")" + "/" + id;
+            $.post(url, function (data) {
+                if (data == 1) {
+                    document.location.href = "@Url.Content("~/Car/GetCars")"
+                } else {
+                    alert("Internal Error *_*")
+                }
+            })
+        }
+    }
+
+
+
+</script>
